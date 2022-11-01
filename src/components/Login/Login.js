@@ -7,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 async function loginUser(credentials) {
   return fetch("http://localhost:8080/login", {
     method: "POST",
@@ -33,6 +34,9 @@ export default function Login({ setToken }) {
   return (
     <div className="login-wrapper">
       <h1>Please Log In </h1>
+
+      <ExitToAppIcon sx={{ m: 1, bgcolor: "primary" }} />
+
       <form onSubmit={handleSubmit}>
         <TextField
           margin="normal"
@@ -56,14 +60,12 @@ export default function Login({ setToken }) {
           autoFocus
         />
         {/* input goes wth event.target.value */}
-
         <div>
           <FormControllLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
         </div>
-
         <div>
           <Button
             type="submit"
