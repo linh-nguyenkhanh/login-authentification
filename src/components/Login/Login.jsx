@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import "../Login/Login.css";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import FormControllLabel from "@mui/material/FormControlLabel";
+import Paper from '@mui/material/Paper'
+import { CssBaseline } from '@mui/material';
+import { Typography } from "@mui/material";
+import Logo from '../Logo.jsx'
+import Box from '@mui/material/Box'
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+
+import TextField from '@mui/material/TextField';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+// async function - post method
 async function loginUser(credentials) {
   return fetch("http://localhost:8080/login", {
     method: "POST",
@@ -31,11 +37,61 @@ export default function Login({ setToken }) {
     setToken(token);
   };
 
-  return (
-    <div className="login-wrapper">     
-      <ExitToAppIcon sx={{ m: 1, bgcolor: "primary" }} />
+  //copy-right section
+  function Copyright(props){
+    return(
+      <Typography variant="body2" color="text.secondary"
+      align="center" {...props}>
+        {'Copyright © '}
+<Link color="inherit" href="https://simple-icecream.netlify.com">
+  izzi.netlify.com
+</Link> {''}
+{new Date().getFullYear()}
+{'.'}
+      </Typography>
+    )
+  }
+
+const theme = createTheme();
+
+
+
+  return (  
+    <ThemeProvider theme={theme}>
+    {/* // Left grid container */}
+      < Grid container component="main" sx={{ height: "100vh"}}>
+        <CssBaseline/>
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://finnishcourse.fi/wp-content/uploads/2021/11/FinnishCourse-students-in-Kauniainen-Finnish-Bible-Institute.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+{/* Right container */}
+    <Grid item xs={12} sm={8} md={5} component={Paper} square >
+      <Box sx={{
+        my: 8,
+        mx: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        
+      }}      
+      >
       <h1>Log In </h1>
-      <form onSubmit={handleSubmit}>
+      {/* logo company */}
+     
+      <Logo/>
+      {/* text field = input */}
+        <Box component="form" onSubmit={handleSubmit} sx={{mt:1}}>
         <TextField
           margin="normal"
           required
@@ -57,23 +113,22 @@ export default function Login({ setToken }) {
           autoComplete="password"
           autoFocus
         />
-        {/* input goes wth event.target.value */}
-        <div>
+       
+        {/* Form */}
           <FormControllLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
-        </div>
-        <div>
+          />      
+        {/* Button area */}
           <Button
+          onChange={handleSubmit}
             type="submit"
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             fullWidth
           >
-            Submit
+           SIGN IN
           </Button>
-        </div>
         <Grid container>
           <Grid item xs>
             <Link href="#" variant="body2">
@@ -84,10 +139,14 @@ export default function Login({ setToken }) {
             <Link href="#" variant="body2">
               {"Dont have an account? Sign up"}
             </Link>
-          </Grid>
+          </Grid>    
         </Grid>
-      </form>
-    </div>
+        <Copyright sx={{mt: 5}}/>     
+      </Box>
+      </Box>
+      </Grid>
+    </Grid>
+    </ThemeProvider>
   );
 }
 Login.propTypes = {
