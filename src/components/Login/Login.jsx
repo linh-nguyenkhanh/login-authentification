@@ -32,11 +32,9 @@ export default function Login({ setToken }) {
   };
 
   return (
-    <div className="login-wrapper">
-      <h1>Please Log In </h1>
-
+    <div className="login-wrapper">     
       <ExitToAppIcon sx={{ m: 1, bgcolor: "primary" }} />
-
+      <h1>Log In </h1>
       <form onSubmit={handleSubmit}>
         <TextField
           margin="normal"
